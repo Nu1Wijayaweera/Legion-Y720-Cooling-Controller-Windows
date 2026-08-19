@@ -16,10 +16,6 @@ The application communicates with the Lenovo GameZone WMI interface and provides
 - Custom application icon
 - Runs with the administrator privileges required by the Lenovo GameZone WMI interface
 
-## Screenshot
-
-_Add a screenshot here in a future release._
-
 ## Requirements
 
 - Windows
