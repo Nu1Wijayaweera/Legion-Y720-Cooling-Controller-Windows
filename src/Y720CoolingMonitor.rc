@@ -1,5 +1,0 @@
-#define IDI_Y720COOLINGMONITOR 101
-
-IDI_Y720COOLINGMONITOR ICON "../resources/Y720CoolingMonitor.ico"
-
-1 24 "Y720CoolingMonitor.manifest"
