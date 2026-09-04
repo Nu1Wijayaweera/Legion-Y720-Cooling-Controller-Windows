@@ -2,7 +2,7 @@
 setlocal
 
 echo ============================================
-echo   LEGION Y720 COOLING MONITOR BUILD
+echo   LEGION Y720 COOLING CONTROLLER BUILD
 echo ============================================
 echo.
 
@@ -39,30 +39,30 @@ REM ------------------------------------------------
 REM Check source files
 REM ------------------------------------------------
 
-if not exist "%SRC%\Y720CoolingMonitor.c" (
+if not exist "%SRC%\Y720CoolingController.c" (
     echo ERROR: Missing:
-    echo %SRC%\Y720CoolingMonitor.c
+    echo %SRC%\Y720CoolingController.c
     pause
     exit /b 1
 )
 
-if not exist "%SRC%\Y720CoolingMonitorGUI.c" (
+if not exist "%SRC%\Y720CoolingControllerGUI.c" (
     echo ERROR: Missing:
-    echo %SRC%\Y720CoolingMonitorGUI.c
+    echo %SRC%\Y720CoolingControllerGUI.c
     pause
     exit /b 1
 )
 
-if not exist "%SRC%\Y720CoolingMonitor.h" (
+if not exist "%SRC%\Y720CoolingController.h" (
     echo ERROR: Missing:
-    echo %SRC%\Y720CoolingMonitor.h
+    echo %SRC%\Y720CoolingController.h
     pause
     exit /b 1
 )
 
-if not exist "%SRC%\Y720CoolingMonitor.rc" (
+if not exist "%SRC%\Y720CoolingController.rc" (
     echo ERROR: Missing:
-    echo %SRC%\Y720CoolingMonitor.rc
+    echo %SRC%\Y720CoolingController.rc
     pause
     exit /b 1
 )
@@ -85,16 +85,37 @@ REM ------------------------------------------------
 REM Compile GameZone / WMI
 REM ------------------------------------------------
 
-echo [1/4] Compiling Y720CoolingMonitor.c...
+echo [1/5] Compiling Y720CoolingController.c...
 
 "%GCC%" ^
-    -c "%SRC%\Y720CoolingMonitor.c" ^
-    -o "%BUILD%\Y720CoolingMonitor.o" ^
+    -c "%SRC%\Y720CoolingController.c" ^
+    -o "%BUILD%\Y720CoolingController.o" ^
     -I"%SRC%"
 
 if errorlevel 1 (
     echo.
-    echo ERROR: Y720CoolingMonitor.c compilation failed.
+    echo ERROR: Y720CoolingController.c compilation failed.
+    pause
+    exit /b 1
+)
+
+echo OK.
+echo.
+
+REM ------------------------------------------------
+REM Compile Utils
+REM ------------------------------------------------
+
+echo [2/5] Compiling utils.c...
+
+"%GCC%" ^
+    -c "%SRC%\utils.c" ^
+    -o "%BUILD%\utils.o" ^
+    -I"%SRC%"
+
+if errorlevel 1 (
+    echo.
+    echo ERROR: utils.c compilation failed.
     pause
     exit /b 1
 )
@@ -106,16 +127,16 @@ REM ------------------------------------------------
 REM Compile GUI
 REM ------------------------------------------------
 
-echo [2/4] Compiling Y720CoolingMonitorGUI.c...
+echo [3/5] Compiling Y720CoolingControllerGUI.c...
 
 "%GCC%" ^
-    -c "%SRC%\Y720CoolingMonitorGUI.c" ^
-    -o "%BUILD%\Y720CoolingMonitorGUI.o" ^
+    -c "%SRC%\Y720CoolingControllerGUI.c" ^
+    -o "%BUILD%\Y720CoolingControllerGUI.o" ^
     -I"%SRC%"
 
 if errorlevel 1 (
     echo.
-    echo ERROR: Y720CoolingMonitorGUI.c compilation failed.
+    echo ERROR: Y720CoolingControllerGUI.c compilation failed.
     pause
     exit /b 1
 )
@@ -127,12 +148,12 @@ REM ------------------------------------------------
 REM Compile Windows resource
 REM ------------------------------------------------
 
-echo [3/4] Compiling Windows resource...
+echo [4/5] Compiling Windows resource...
 
 "%WINDRES%" ^
-    "%SRC%\Y720CoolingMonitor.rc" ^
+    "%SRC%\Y720CoolingController.rc" ^
     -O coff ^
-    -o "%BUILD%\Y720CoolingMonitor_res.o"
+    -o "%BUILD%\Y720CoolingController_res.o"
 
 if errorlevel 1 (
     echo.
@@ -148,13 +169,14 @@ REM ------------------------------------------------
 REM Link executable
 REM ------------------------------------------------
 
-echo [4/4] Linking executable...
+echo [5/5] Linking executable...
 
 "%GCC%" ^
-    "%BUILD%\Y720CoolingMonitorGUI.o" ^
-    "%BUILD%\Y720CoolingMonitor.o" ^
-    "%BUILD%\Y720CoolingMonitor_res.o" ^
-    -o "%BUILD%\Y720CoolingMonitor.exe" ^
+    "%BUILD%\Y720CoolingControllerGUI.o" ^
+    "%BUILD%\Y720CoolingController.o" ^
+    "%BUILD%\utils.o" ^
+    "%BUILD%\Y720CoolingController_res.o" ^
+    -o "%BUILD%\Y720CoolingController.exe" ^
     -municode ^
     -mwindows ^
     -lole32 ^
@@ -163,7 +185,10 @@ echo [4/4] Linking executable...
     -luuid ^
     -ladvapi32 ^
     -luser32 ^
-    -lgdi32
+    -lshell32 ^
+    -lgdi32 ^
+    -lcomctl32 ^
+    -luxtheme
 
 if errorlevel 1 (
     echo.
@@ -178,10 +203,10 @@ echo   BUILD SUCCESSFUL
 echo ============================================
 echo.
 echo Executable:
-echo %BUILD%\Y720CoolingMonitor.exe
+echo %BUILD%\Y720CoolingController.exe
 echo.
 
-dir "%BUILD%\Y720CoolingMonitor.exe"
+dir "%BUILD%\Y720CoolingController.exe"
 
 echo.
 pause
