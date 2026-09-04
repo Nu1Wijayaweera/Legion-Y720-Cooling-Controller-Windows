@@ -1,0 +1,5 @@
+#define IDI_Y720COOLINGCONTROLLER 101
+
+IDI_Y720COOLINGCONTROLLER ICON "../resources/Y720CoolingController.ico"
+
+1 24 "Y720CoolingController.manifest"
