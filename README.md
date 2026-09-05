@@ -5,9 +5,7 @@
 </p>
 
 <p align="center">
-  This project provides a native Windows interface for the Lenovo Legion Y720's cooling controls without depending on the Lenovo Nerve Center / Nerve Sense application interface.
-
-  The controller communicates directly with the Lenovo GameZone WMI interface exposed by the Y720. It provides real-time fan and thermal monitoring, manual Extreme Cooling control, and automatic temperature-based Extreme Cooling.
+  A lightweight native Windows controller for monitoring and controlling the cooling features of the Lenovo Legion Y720.
 </p>
 
 <p align="center">
