@@ -5,7 +5,9 @@
 </p>
 
 <p align="center">
-  A lightweight native Windows controller for monitoring and controlling the cooling features of the Lenovo Legion Y720.
+  This project provides a native Windows interface for the Lenovo Legion Y720's cooling controls without depending on the Lenovo Nerve Center / Nerve Sense application interface.
+
+  The controller communicates directly with the Lenovo GameZone WMI interface exposed by the Y720. It provides real-time fan and thermal monitoring, manual Extreme Cooling control, and automatic temperature-based Extreme Cooling.
 </p>
 
 <p align="center">
@@ -16,15 +18,19 @@ This project provides a native Windows interface for the Lenovo Legion Y720's co
 
 The controller communicates directly with the Lenovo GameZone WMI interface exposed by the Y720. It provides real-time fan and thermal monitoring, manual Extreme Cooling control, and automatic temperature-based Extreme Cooling.
 
-> **Development status:** The current source contains substantially more functionality than the published v1.0.0 release. A new release is planned after additional release preparation and compatibility testing.
+> **Release status:** **v2.0.0** is the current stable release.
 
 ## Download
 
-The current published release is the original **v1.0.0** release. The newer controller features described in this README are part of the current development version and will be published in a future release.
+The current stable release is **v2.0.0**.
+
+The release package contains the standalone Windows executable and does not require a separate installer.
 
 - **[Download Latest Release](../../releases/latest)**
 - **[View All Releases](../../releases)**
 - **[Download Source Code](../../archive/HEAD.zip)**
+
+For the exact source code corresponding to this release, use the source archive attached to the **v2.0.0** release or browse the `v2.0.0` tag.
 
 ## Features
 
@@ -54,7 +60,7 @@ The current published release is the original **v1.0.0** release. The newer cont
 The controller was developed and tested specifically for:
 
 - Lenovo Legion Y720
-- Windows 10 / Windows 11
+- Windows 10
 - 64-bit Windows
 - Administrator privileges
 - Lenovo GameZone WMI interface available on the system
@@ -284,7 +290,7 @@ Launching the application again while it is already running signals the existing
 The controller stores its user settings in:
 
 ```text
-%APPDATA%\\LegionY720CoolingController\\settings.ini
+%APPDATA%\LegionY720CoolingController\settings.ini
 ```
 
 The saved settings include:
@@ -334,8 +340,8 @@ The supplied build script uses the **MinGW-w64 UCRT64** toolchain provided by MS
 The current build environment expects:
 
 ```text
-C:\\msys64\\ucrt64\\bin\\gcc.exe
-C:\\msys64\\ucrt64\\bin\\windres.exe
+C:\msys64\ucrt64\bin\gcc.exe
+C:\msys64\ucrt64\bin\windres.exe
 ```
 
 ### Build
@@ -358,7 +364,7 @@ The build script:
 The generated executable is placed in:
 
 ```text
-build\\Y720CoolingController.exe
+build\Y720CoolingController.exe
 ```
 
 ## Project Structure
@@ -396,7 +402,7 @@ The `build` directory is generated during compilation and is not part of the sou
 The application uses the Y720's Lenovo GameZone WMI interface under:
 
 ```text
-ROOT\\WMI
+ROOT\WMI
 ```
 
 and communicates with the known Y720 GameZone object:
@@ -496,6 +502,38 @@ The goal is to provide useful cooling control and monitoring without requiring t
 
 ## Release History
 
+### v2.0.0
+
+Major update transforming the original Cooling Monitor into a full Lenovo Legion Y720 cooling controller.
+
+Included:
+
+- Redesigned Legion-inspired native Windows GUI
+- Manual Extreme Cooling control
+- Automatic temperature-based Extreme Cooling
+- Configurable trigger and stop temperatures
+- 10-second temperature persistence before automatic state changes
+- 5°C minimum hysteresis between trigger and stop thresholds
+- Real-time Fan 1 and Fan 2 RPM monitoring
+- Lenovo GameZone IR temperature monitoring
+- Background Automatic Cooling monitoring
+- System-tray integration
+- Tray controls for Extreme Cooling and Automatic Cooling
+- Global `Ctrl + Shift + 0` Extreme Cooling shortcut
+- Optional Start with Windows support
+- Windows Task Scheduler based startup
+- Persistent Automatic Cooling settings
+- Single-instance application
+- Built-in uninstall and cleanup
+- Safe Extreme Cooling shutdown when the application exits
+- Explorer restart handling for the system-tray icon
+- Improved WMI handling and reduced unnecessary polling
+- Defensive configuration validation
+- Updated application branding and resources
+- No separate installer required
+
+The application continues to communicate directly with the Lenovo GameZone WMI interface rather than using the Lenovo Nerve Center / Nerve Sense application interface.
+
 ### v1.0.0
 
 Initial public release.
@@ -510,8 +548,6 @@ Included:
 - Application icon
 - Lenovo GameZone WMI integration
 - Administrator manifest
-
-A newer development version is currently being prepared with automatic cooling, system-tray integration, startup support, configuration persistence, global hotkey support, improved safety handling, and a redesigned user interface.
 
 ## Disclaimer
 
