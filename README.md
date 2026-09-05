@@ -378,7 +378,7 @@ Legion-Y720-Cooling-Controller-Windows/
 │   ├── Y720CoolingController.manifest
 │   ├── utils.c
 │   ├── utils.h
-│   ├── theme.h
+│   └── theme.h
 │
 ├── resources/
 │   └── Y720CoolingController.ico
